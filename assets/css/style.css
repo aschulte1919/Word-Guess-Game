@@ -1,0 +1,28 @@
+body { 
+    font-family:sans-serif; 
+    font-weight:bold; 
+    font-size:16pt;
+}
+
+.container { 
+    text-align: center;
+    
+}
+h2,h3,
+h4,h5,h6 {
+    padding: 5px;
+    height: 40px;
+    background-color: beige;
+}
+#star{ 
+    display: block;
+    margin: 0 auto;
+    width: 10%;
+}
+
+#currentWord {
+    z-index: 100;
+}
+
+
+
