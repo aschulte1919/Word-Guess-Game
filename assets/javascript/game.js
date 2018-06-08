@@ -2,7 +2,7 @@ var startBtn = document.getElementById("startBtn");
 var content = document.getElementById("content");
 var header = document.getElementById("header");
 
-var initialize = function (initialize) {
+var initialize = function () {
     startBtn.style.display = "none";
     header.style.display = "none";
     content.style.display = "block";
@@ -47,42 +47,48 @@ var game = {
 
     // Displays the number of times the user has won
     displayWins: function () {
-
-        if (this.lettersGuess === this.lettersInWord)
+        document.getElementById("totalWins").textContent = this.wins
+        if (this.lettersGuess === this.lettersInWord) {
             document.getElementById("totalWins").textContent = this.wins++;
+        }
     },
 
     //when the user guess
     //determine if the letter is in the word
     //or determine if it is not
     //acts accordingly
-    handleGuess: function (event) {
+    handleGuess: function () {
+        document.onkeyup = function (event) {
             console.log(event);
-            event = event || window.event.key; //capture the event, and ensure we have an event
-            this.guess = window.event.key;
-            console.log(event);
-            document.getElementById("letterGuess").textContent = this.lettersGuess.push(this.guess);
-            if (this.word.includes(this.guess)) {
-                for (var i = 0; i < this.word.length; i++) {
-                    if (this.word[i] === this.guess) {
-                        this.displayWord[i] = " " + this.guess + " ";
+            game.guess = window.event.key;
+            console.log(game.lettersInWord);
+            console.log(game.guess);
+            if (game.lettersInWord.includes(game.guess)) {
+                for (var i = 0; i < game.word.length; i++) {
+                    if (game.word[i] === game.guess) {
+                        game.displayWord[i] = " " + game.guess + " ";
                     }
                 }
             } else {
-                this.guessesLeft--;
+                game.guessesLeft--;
+                document.getElementById("guessedLetters").textContent = game.lettersGuess.push(game.guess);
             }
-            this.updateDisplayWord(this.displayWord);
-            console.log(this.lettersGuess);
+            game.updateDisplayWord(game.displayWord);
+            console.log(game.lettersGuess);
+        }
     },
 
-    //adds the 
+
+    //adds the letter 
     updateDisplayWord: function (word) {
         document.getElementById("currentWord").textContent = word.join(" ");
     },
 
     // Displays how many guess the user has left
     displayRemaining: function () {
-        document.getElementById("remainingGuesses").textContent = this.guessesLeft;
+        if (this.lettersGuess != this.lettersInWord) {
+            document.getElementById("remainingGuesses").textContent = this.guessesLeft--;
+        }
     },
 
     // Game execution occurs
