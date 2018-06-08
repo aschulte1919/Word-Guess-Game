@@ -56,23 +56,26 @@ var game = {
     //determine if the letter is in the word
     //or determine if it is not
     //acts accordingly
-    handleGuess: function (e) {
-        console.log(e);
-        this.guess = e.key;
-        document.getElementById("letterGuess").textContent.push(this.guess);
-        if (this.word.includes(this.guess)) {
-            for (var i = 0; i < this.word.length; i++) {
-                if (this.word[i] === this.guess) {
-                    this.displayWord[i] = " " + this.guess + " ";
+    handleGuess: function (event) {
+            console.log(event);
+            event = event || window.event.key; //capture the event, and ensure we have an event
+            this.guess = window.event.key;
+            console.log(event);
+            document.getElementById("letterGuess").textContent = this.lettersGuess.push(this.guess);
+            if (this.word.includes(this.guess)) {
+                for (var i = 0; i < this.word.length; i++) {
+                    if (this.word[i] === this.guess) {
+                        this.displayWord[i] = " " + this.guess + " ";
+                    }
                 }
+            } else {
+                this.guessesLeft--;
             }
-        } else {
-            this.guessesLeft--;
-        }
-        this.updateDisplayWord(this.displayWord);
-        console.log(this.lettersGuess);
+            this.updateDisplayWord(this.displayWord);
+            console.log(this.lettersGuess);
     },
 
+    //adds the 
     updateDisplayWord: function (word) {
         document.getElementById("currentWord").textContent = word.join(" ");
     },
@@ -90,6 +93,5 @@ var game = {
         game.displayWins();
         game.displayRemaining();
         game.handleGuess();
-
     }
 };
