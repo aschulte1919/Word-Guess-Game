@@ -7,6 +7,8 @@ var initialize = function () {
     header.style.display = "none";
     content.style.display = "block";
     game.play();
+    document.getElementById("remainingGuesses").textContent = game.guessesLeft;
+    document.getElementById("totalWins").textContent = this.wins;
 }
 
 document.getElementById("startBtn").onclick = initialize;
@@ -17,6 +19,7 @@ var game = {
     words: ['ruby', 'rails', 'javascript', 'array', 'hash', 'sinatra', 'model', 'view', 'devise', 'capybara', 'jasmine', 'cache', 'sublime', 'terminal', 'system', 'twitter', 'facebook', 'function', 'google', 'amazon', 'data', 'design', 'prototype', 'gist', 'github', 'agile', 'fizzbuzz', 'route', 'gem', 'database'],
     lettersInWord: [],
     lettersGuess: [],
+    displayWord: [],
     guessesLeft: 10,
     wins: 0,
     guess: "",
@@ -30,7 +33,7 @@ var game = {
     // Seperates the letters of the random word selected
     setLettersInWord: function () {
         this.lettersInWord = this.word.split("");
-        console.log("setLetter function", this.lettersInWord);
+        console.log(this.lettersInWord);
     },
 
     // Displays the random word with __
@@ -45,22 +48,16 @@ var game = {
         document.getElementById("currentWord").textContent = this.displayWord;
     },
 
-    // Displays the number of times the user has won
-    displayWins: function () {
-        document.getElementById("totalWins").textContent = this.wins
-        if (this.lettersGuess === this.lettersInWord) {
-            document.getElementById("totalWins").textContent = this.wins++;
-        }
-    },
-
     //when the user guess
     //determine if the letter is in the word
     //or determine if it is not
     //acts accordingly
     handleGuess: function () {
         document.onkeyup = function (event) {
-            console.log(event);
             game.guess = window.event.key;
+            console.log(game.guess);
+            game.lettersGuess.push(game.guess);
+            document.getElementById("guessedLetters").textContent = game.lettersGuess;
             console.log(game.lettersInWord);
             console.log(game.guess);
             if (game.lettersInWord.includes(game.guess)) {
@@ -70,25 +67,23 @@ var game = {
                     }
                 }
             } else {
-                game.guessesLeft--;
-                document.getElementById("guessedLetters").textContent = game.lettersGuess.push(game.guess);
+                document.getElementById("remainingGuesses").textContent = game.guessesLeft--;
             }
             game.updateDisplayWord(game.displayWord);
             console.log(game.lettersGuess);
         }
     },
 
+    // Displays the number of times the user has won
+    displayWins: function () {
+        if (this.lettersGuess === this.displayWord) {
+            document.getElementById("totalWins").textContent = game.wins++;
+        }
+    },
 
     //adds the letter 
     updateDisplayWord: function (word) {
         document.getElementById("currentWord").textContent = word.join(" ");
-    },
-
-    // Displays how many guess the user has left
-    displayRemaining: function () {
-        if (this.lettersGuess != this.lettersInWord) {
-            document.getElementById("remainingGuesses").textContent = this.guessesLeft--;
-        }
     },
 
     // Game execution occurs
@@ -97,7 +92,6 @@ var game = {
         game.setLettersInWord();
         game.displayCurrentWord();
         game.displayWins();
-        game.displayRemaining();
         game.handleGuess();
     }
 };
