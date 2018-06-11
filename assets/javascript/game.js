@@ -65,15 +65,13 @@ var game = {
                     if (game.word[i] === game.guess) {
                         game.displayWord[i] = game.guess;
                         game.correctGuess = game.correctGuess + 1;
-                        game.winner();
                     }
                 }
+                game.winner();
             } else {
                 game.guessesLeft--;
                 document.getElementById("remainingGuesses").textContent = game.guessesLeft;
-            }
-            if (game.guessesLeft == 0) {
-                document.getElementById("loser").style.display = "block";
+                game.loser();
             }
             game.updateDisplayWord(game.displayWord);
         }
@@ -85,6 +83,11 @@ var game = {
             document.getElementById("winner").style.display = "block";
             game.wins++;
             document.getElementById("totalWins").textContent = game.wins;
+        }
+    },
+    loser: function () {
+        if (game.guessesLeft == 0) {
+            document.getElementById("loser").style.display = "block";
         }
     },
 
@@ -101,26 +104,14 @@ var game = {
 
     //resets the letters the user has guess array
     resetLetters: function () {
-        if (game.correctGuess === game.wordLength) {
             game.lettersGuess = [];
             document.getElementById("guessedLetters").textContent = game.lettersGuess;
-        }
     },
 
     //reset guesses left function
     resetGuessLeft: function () {
-        if (game.correctGuess === game.wordLength) {
             game.guessesLeft = 10;
             document.getElementById("remainingGuesses").textContent = game.guessesLeft;
-        }
-    },
-
-    resetWord: function () {
-        if (game.correctGuess === game.wordLength) {
-            game.guess = "";
-            game.correctGuess = 0;
-            game.wordLength = 0;
-        }
     },
 
     //resets game when loser hits the play again button
@@ -128,9 +119,13 @@ var game = {
         game.updateDisplayWord(game.displayWord);
         game.resetGuessLeft();
         game.resetLetters();
-        game.play();
         game.resetDisplay();
-        game.resetWord();
+        game.guess= "";
+        game.correctGuess= 0;
+        game.wordLength= 0;
+        game.word = "";
+        game.displayWord= [],
+        game.play();
     },
 
     // Game execution occurs
