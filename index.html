@@ -42,10 +42,41 @@
                     <h4>Letters Guessed</h4>
                     <h4 id="guessedLetters"></h4>
                 </div>
-            <div>
+                <div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="winner" style="display:none">
+        <div class="conainter">
+            <div class="row">
+                <div class="col-md-6 loser-column">
+                    <iframe src="https://giphy.com/embed/wijMRo7UZXSqA" style="border: none"></iframe>
+                </div>
+                <div class="col-md-6 loser-column">
+                    <h1>YOU WON!!!</h1>
+                </div>
+                <button type="button" class="btn btn-outline-dark btn-lg btn-block" id="plyAgainBtn">CLICK TO PLAY AGAIN</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="loser" style="display:none">
+        <div class="conainter">
+            <div class="row">
+                <div class="col-md-6 loser-column">
+                    <iframe src="https://giphy.com/embed/1zSz5MVw4zKg0" style="border: none"></iframe>
+                </div>
+                <div class="col-md-6 loser-column">
+                    <h1>YOU LOST!!!</h1>
+                </div>
+                <button type="button" class="btn btn-outline-dark btn-lg btn-block" id="plyBtn">CLICK TO PLAY AGAIN</button>
+            </div>
         </div>
     </div>
 </body>
+
 <script src='assets/javascript/game.js'></script>
 
 </html>
